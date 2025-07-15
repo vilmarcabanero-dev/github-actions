@@ -1,0 +1,33 @@
+name: Test Self-Hosted Runner
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test Environment
+        run: |
+          echo "Runner is working\!"
+          echo "Node.js version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Git version: $(git --version)"
+          echo "Current user: $(whoami)"
+          echo "Working directory: $(pwd)"
+          echo "OS Info: $(uname -a)"
+
+      - name: Test Node.js
+        run: |
+          echo "console.log('Hello from Node.js on self-hosted runner\!')" > test.js
+          node test.js
+
+      - name: Test Git
+        run: |
+          git config --global user.name "GitHub Actions Runner"
+          git config --global user.email "runner@example.com"
+          git status
