@@ -1,0 +1,14 @@
+# Save as .github/workflows/test-org-runner.yml in any org repository:
+name: Test Organization Runner
+on: [push, workflow_dispatch]
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Runner
+        run: |
+          echo "Organization runner is working!"
+          echo "Node.js: $(node --version)"
+          echo "Repository: ${{ github.repository }}"
+          echo "Organization: ${{ github.repository_owner }}"
